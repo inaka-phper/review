@@ -88,4 +88,15 @@ class UserEntity implements Entityable, Arrayable, Jsonable
         return $this->user->toJson();
     }
 
+    /**
+     * method if not found, calls into the model.
+     * @param $method
+     * @param $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return call_user_func_array(array($this->getModel(), $method), $parameters);
+    }
+
 }
