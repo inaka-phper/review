@@ -9,11 +9,13 @@
 namespace App\Entities;
 
 
+use App\Contracts\Entityable;
 use App\User;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Database\Eloquent\Model;
 
-class UserEntity implements Arrayable, Jsonable
+class UserEntity implements Entityable, Arrayable, Jsonable
 {
     /* UserInterface */
     protected $user;
@@ -24,22 +26,24 @@ class UserEntity implements Arrayable, Jsonable
     }
 
     /**
-     * @return User
+     * set a model on Entity
+     * @param Model $model
+     * @return $this
      */
-    public function getUser()
+    public function setModel(Model $model)
     {
-        return $this->user;
+        $this->user = $model;
+
+        return $this;
     }
 
     /**
-     * @param User $user
-     * @return $this
+     * get a Model
+     * @return Model
      */
-    public function setUser(User $user)
+    public function getModel()
     {
-        $this->user = $user;
-
-        return $this;
+        return $this->user;
     }
 
     public function create(array $value)

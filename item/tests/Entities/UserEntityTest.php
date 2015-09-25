@@ -53,17 +53,17 @@ class UserEntityTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers App\Entities\UserEntity::getUser
      */
-    public function testGetUser()
+    public function testGetModel()
     {
-        $this->assertInstanceOf('App\User', $this->object->getUser());
+        $this->assertInstanceOf('App\User', $this->object->getModel());
     }
 
     /**
      * @covers App\Entities\UserEntity::setUser
      */
-    public function testSetUser()
+    public function testSetModel()
     {
-        $this->assertInstanceOf('App\Entities\UserEntity', $this->object->setUser($this->mock));
+        $this->assertInstanceOf('App\Entities\UserEntity', $this->object->setModel($this->mock));
     }
 
     /**
