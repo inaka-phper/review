@@ -90,6 +90,28 @@ class UserEntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @convers AppEntities\UserEntity::all
+     */
+    public function testAll()
+    {
+        $collection = m::mock('Collection');
+        $this->mock->shouldReceive('all')->andReturn($collection);
+
+        $this->assertInstanceOf('Collection', $this->object->all());
+    }
+
+    /**
+     * @convers AppEntities\UserEntity::paginate
+     */
+    public function testPaginate()
+    {
+        $collection = m::mock('Paginator');
+        $this->mock->shouldReceive('paginate')->andReturn($collection);
+
+        $this->assertInstanceOf('Paginator', $this->object->paginate());
+    }
+
+    /**
      * @covers App\Entities\UserEntity::toArray
      */
     public function testToArray()

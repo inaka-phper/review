@@ -11,8 +11,10 @@ namespace App\Entities;
 
 use App\Contracts\Entityable;
 use App\User;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class UserEntity implements Entityable, Arrayable, Jsonable
@@ -65,6 +67,26 @@ class UserEntity implements Entityable, Arrayable, Jsonable
         $this->user = $this->user->findOrFail($id);
 
         return $this;
+    }
+
+    /**
+     * all user list
+     *
+     * @return Collection
+     */
+    public function all()
+    {
+        return $this->user->all();
+    }
+
+    /**
+     * paginate the user list
+     *
+     * @return Paginator
+     */
+    public function paginate()
+    {
+        return $this->user->paginate();
     }
 
     /**
