@@ -10,6 +10,7 @@ namespace App\Entities;
 
 
 use App\Contracts\Entityable;
+use App\Contracts\UserEntityable;
 use App\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
@@ -17,7 +18,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class UserEntity implements Entityable, Arrayable, Jsonable
+class UserEntity implements UserEntityable, Entityable, Arrayable, Jsonable
 {
     /* UserInterface */
     protected $user;
