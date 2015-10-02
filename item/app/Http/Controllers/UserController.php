@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\UserServiceable;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    /**
+     * @var UserServiceable
+     */
+    protected $user;
+
+    public function __construct(UserServiceable $user)
+    {
+        $this->user = $user;
+
+    }
+
     /**
      * Display a listing of the resource.
      *
