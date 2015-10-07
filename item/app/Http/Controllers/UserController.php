@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\UserServiceable;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Route;
 
 class UserController extends Controller
 {
@@ -27,7 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json($this->user->paginate());
     }
 
     /**
@@ -43,12 +46,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param UserStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        //
+        $this->user->addUser($request->all());
+
+        return response()->json($this->user->getEntity());
     }
 
     /**
@@ -59,7 +64,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json($this->user->find($id));
     }
 
     /**
@@ -75,24 +80,39 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param UserUpdateRequest $request
+     * @param Route $route
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, Route $route)
     {
-        //
+        $id = $route->getParameter('user');
+
+        // find to user data.
+        $user = $this->user->find($id);
+
+        // to set input.
+        $user->fill($request->all())->save();
+
+        return response()->json($user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Route $route
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Route $route)
     {
-        //
+        $id = $route->getParameter('user');
+
+        // find to user data.
+        $user = $this->user->find($id);
+
+        // execute deleting.
+        $user->delete();
+
+        return response()->json($user);
     }
 }
