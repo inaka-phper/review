@@ -50,6 +50,14 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers App\Services\User::getEntity
+     */
+    public function testGetEntity()
+    {
+        $this->assertInstanceOf('App\Contracts\UserEntityable', $this->object->getEntity());
+    }
+
+    /**
      * @covers App\Services\User::addUser
      */
     public function testAddUser()

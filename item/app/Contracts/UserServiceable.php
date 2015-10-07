@@ -15,6 +15,12 @@ use Illuminate\Database\Eloquent\Collection;
 interface UserServiceable
 {
     /**
+     * get UserEntityable
+     * @return UserEntityable
+     */
+    public function getEntity();
+
+    /**
      * add user
      * @param $values
      * @return UserEntity

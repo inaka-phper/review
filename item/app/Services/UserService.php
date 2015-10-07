@@ -26,6 +26,15 @@ class UserService implements UserServiceable
     }
 
     /**
+     * get UserEntityable
+     * @return UserEntityable
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
      * add user
      * @param $values
      * @return UserEntityable
