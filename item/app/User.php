@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Contracts\EntityInstanceable;
+use App\Entities\UserEntity;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -12,9 +14,10 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract
+    CanResetPasswordContract,
+    EntityInstanceable
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, EntityInstance;
 
     /**
      * The database table used by the model.
@@ -44,5 +47,14 @@ class User extends Model implements AuthenticatableContract,
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * Get the Entity::class for the use model.
+     * @return mixed
+     */
+    public function getEntityName()
+    {
+        return UserEntity::class;
     }
 }
