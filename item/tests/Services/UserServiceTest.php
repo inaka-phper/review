@@ -17,7 +17,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @var UserEntityable(mock)
      */
-    protected $mock;
+    protected $user;
 
     /**
      * @var array User's columns
@@ -36,8 +36,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->mock = m::mock('UserEntityable', 'App\Contracts\UserEntityable');
-        $this->object = new UserService($this->mock);
+        $this->user = m::mock('UserEntityable', 'App\Contracts\UserEntityable');
+
+        $this->object = new UserService($this->user);
     }
 
     /**
@@ -62,8 +63,8 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddUser()
     {
-        $this->mock
-            ->shouldReceive('create')->andReturn(m::self());
+        $this->user
+            ->shouldReceive('create')->andReturn($this->user);
 
         $this->assertInstanceOf('App\Contracts\UserEntityable', $this->object->addUser($this->value));
     }
@@ -73,8 +74,8 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddUsers()
     {
-        $this->mock
-            ->shouldReceive('create')->andReturn(m::self());
+        $this->user
+            ->shouldReceive('create')->andReturn(true);
 
         $this->assertTrue($this->object->addUsers([$this->value, $this->value]));
     }
@@ -84,7 +85,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testFind()
     {
-        $this->mock->shouldReceive('find')->andReturn(m::self());
+        $this->user->shouldReceive('find')->andReturn($this->user);
 
         $this->assertInstanceOf('App\Contracts\UserEntityable', $this->object->find(1));
     }
@@ -95,7 +96,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     public function testAll()
     {
         $collection = m::mock('Collection');
-        $this->mock->shouldReceive('all')->andReturn($collection);
+        $this->user->shouldReceive('all')->andReturn($collection);
 
         $this->assertInstanceOf('Collection', $this->object->all());
     }
@@ -106,7 +107,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     public function testPaginate()
     {
         $collection = m::mock('Paginator');
-        $this->mock->shouldReceive('paginate')->andReturn($collection);
+        $this->user->shouldReceive('paginate')->andReturn($collection);
 
         $this->assertInstanceOf('Paginator', $this->object->paginate());
     }
