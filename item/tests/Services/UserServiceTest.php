@@ -20,6 +20,11 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     protected $user;
 
     /**
+     * @var ChildEntityable(mock)
+     */
+    protected $child;
+
+    /**
      * @var array User's columns
      */
     protected $value = [
@@ -37,8 +42,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->user = m::mock('UserEntityable', 'App\Contracts\UserEntityable');
+        $this->child = m::mock('ChildEntityable', 'App\Contracts\ChildEntityable');
 
-        $this->object = new UserService($this->user);
+        $this->object = new UserService($this->user, $this->child);
     }
 
     /**
@@ -81,6 +87,28 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers App\Services\User::addChild
+     */
+    public function testAddChild()
+    {
+        $this->child
+            ->shouldReceive('create')->andReturn($this->child);
+
+        $this->assertInstanceOf('App\Contracts\ChildEntityable', $this->object->addChild($this->value));
+    }
+
+    /**
+     * @covers App\Services\User::addUsers
+     */
+    public function testDeleteChild()
+    {
+        $this->child
+            ->shouldReceive('destroy')->andReturn(true);
+
+        $this->assertTrue($this->object->deleteChild(1));
+    }
+
+    /**
      * @covers App\Services\User::find
      */
     public function testFind()
@@ -110,5 +138,28 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $this->user->shouldReceive('paginate')->andReturn($collection);
 
         $this->assertInstanceOf('Paginator', $this->object->paginate());
+    }
+
+    /**
+     * @covers App\Services\User::getChild
+     */
+    public function testGetChild()
+    {
+        $collection = m::mock('Collection');
+        $collection->shouldReceive('first')->andReturn($this->child);
+        $this->user->shouldReceive('children')->andReturn($collection);
+
+        $this->assertInstanceOf('App\Contracts\ChildEntityable', $this->object->getChild(1));
+    }
+
+    /**
+     * @covers App\Services\User::getChildren
+     */
+    public function testGetChildren()
+    {
+        $collection = m::mock('Collection');
+        $this->user->shouldReceive('children')->andReturn($collection);
+
+        $this->assertInstanceOf('Collection', $this->object->getChildren());
     }
 }
