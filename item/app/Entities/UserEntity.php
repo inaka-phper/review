@@ -122,4 +122,14 @@ class UserEntity implements UserEntityable, Entityable, Arrayable, Jsonable
         return call_user_func_array(array($this->getModel(), $method), $parameters);
     }
 
+    /**
+     * property if not found, calls into the model.
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->getModel()->$name;
+    }
+
 }
