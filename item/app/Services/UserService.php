@@ -74,7 +74,7 @@ class UserService implements UserServiceable
      */
     public function find($id)
     {
-        return $this->entity->find($id);
+        return $this->entity = $this->entity->find($id);
     }
 
     /**
@@ -121,10 +121,10 @@ class UserService implements UserServiceable
      */
     public function getChild($id)
     {
-        $child = $this->entity->children()->first(function ($child) use ($id) {
+        $this->child = $this->entity->children->first(function ($child) use ($id) {
             return $child->id == $id;
         });
-        return $child;
+        return $this->child;
     }
 
     /**
@@ -133,6 +133,6 @@ class UserService implements UserServiceable
      */
     public function getChildren()
     {
-        return $this->entity->children();
+        return $this->entity->children;
     }
 }

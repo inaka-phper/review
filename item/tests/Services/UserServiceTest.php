@@ -147,7 +147,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     {
         $collection = m::mock('Collection');
         $collection->shouldReceive('first')->andReturn($this->child);
-        $this->user->shouldReceive('children')->andReturn($collection);
+        $this->user->children = $collection;
 
         $this->assertInstanceOf('App\Contracts\ChildEntityable', $this->object->getChild(1));
     }
@@ -158,7 +158,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetChildren()
     {
         $collection = m::mock('Collection');
-        $this->user->shouldReceive('children')->andReturn($collection);
+        $this->user->children = $collection;
 
         $this->assertInstanceOf('Collection', $this->object->getChildren());
     }
