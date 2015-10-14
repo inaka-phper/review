@@ -28,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Entities\UserEntity::class
         );
         $this->app->bind(
+            \App\Contracts\ChildEntityable::class,
+            \App\Entities\ChildEntity::class
+        );
+        $this->app->bind(
             \App\Contracts\UserServiceable::class,
             \App\Services\UserService::class
         );
