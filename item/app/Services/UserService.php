@@ -121,7 +121,7 @@ class UserService implements UserServiceable
      */
     public function getChild($id)
     {
-        $this->child = $this->entity->children->first(function ($child) use ($id) {
+        $this->child = $this->entity->children->first(function ($key, ChildEntityable $child) use ($id) {
             return $child->id == $id;
         });
         return $this->child;
