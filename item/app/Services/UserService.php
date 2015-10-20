@@ -36,7 +36,7 @@ class UserService implements UserServiceable
      * get UserEntityable
      * @return UserEntityable
      */
-    public function getEntity()
+    public function getUserEntity()
     {
         return $this->user;
     }
@@ -111,7 +111,7 @@ class UserService implements UserServiceable
      */
     public function addChild(array $values)
     {
-        return $this->child->create($this->getEntity(), $values);
+        return $this->child->create($this->getUserEntity(), $values);
     }
 
     /**
