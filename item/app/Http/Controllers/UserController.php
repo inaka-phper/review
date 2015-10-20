@@ -53,7 +53,7 @@ class UserController extends Controller
     {
         $this->user->addUser($request->all());
 
-        return response()->json($this->user->getEntity());
+        return response()->json($this->user->getUserEntity());
     }
 
     /**

@@ -19,16 +19,16 @@ class UserService implements UserServiceable
     /**
      * @var UserEntityable
      */
-    protected $entity;
+    protected $user;
 
     /**
      * @var ChildEntityable
      */
     protected $child;
 
-    public function __construct(UserEntityable $entity, ChildEntityable $child)
+    public function __construct(UserEntityable $user, ChildEntityable $child)
     {
-        $this->entity = $entity;
+        $this->user = $user;
         $this->child = $child;
     }
 
@@ -36,9 +36,9 @@ class UserService implements UserServiceable
      * get UserEntityable
      * @return UserEntityable
      */
-    public function getEntity()
+    public function getUserEntity()
     {
-        return $this->entity;
+        return $this->user;
     }
 
     /**
@@ -57,7 +57,7 @@ class UserService implements UserServiceable
      */
     public function addUser(array $values)
     {
-        return $this->entity->create($values);
+        return $this->user->create($values);
     }
 
     /**
@@ -83,7 +83,7 @@ class UserService implements UserServiceable
      */
     public function find($id)
     {
-        return $this->entity = $this->entity->find($id);
+        return $this->user = $this->user->find($id);
     }
 
     /**
@@ -92,7 +92,7 @@ class UserService implements UserServiceable
      */
     public function all()
     {
-        return $this->entity->all();
+        return $this->user->all();
     }
 
     /**
@@ -101,7 +101,7 @@ class UserService implements UserServiceable
      */
     public function paginate()
     {
-        return $this->entity->paginate();
+        return $this->user->paginate();
     }
 
     /**
@@ -111,7 +111,7 @@ class UserService implements UserServiceable
      */
     public function addChild(array $values)
     {
-        return $this->child->create($this->getEntity(), $values);
+        return $this->child->create($this->getUserEntity(), $values);
     }
 
     /**
@@ -130,7 +130,7 @@ class UserService implements UserServiceable
      */
     public function getChild($id)
     {
-        $this->child = $this->entity->children->first(function ($key, ChildEntityable $child) use ($id) {
+        $this->child = $this->user->children->first(function ($key, ChildEntityable $child) use ($id) {
             return $child->getModel()->id == $id;
         });
         return $this->child;
@@ -142,6 +142,6 @@ class UserService implements UserServiceable
      */
     public function getChildren()
     {
-        return $this->entity->children;
+        return $this->user->children;
     }
 }

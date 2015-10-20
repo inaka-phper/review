@@ -18,7 +18,7 @@ interface UserServiceable
      * get UserEntityable
      * @return UserEntityable
      */
-    public function getEntity();
+    public function getUserEntity();
 
     /**
      * add user
