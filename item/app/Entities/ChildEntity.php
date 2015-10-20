@@ -2,30 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: phper
- * Date: 2015/09/22
- * Time: 16:30
+ * Date: 2015/10/12
+ * Time: 14:33
  */
 
 namespace App\Entities;
 
 
+use App\Child;
 use App\Contracts\Entityable;
+use App\Contracts\ChildEntityable;
 use App\Contracts\UserEntityable;
-use App\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class UserEntity implements UserEntityable, Entityable, Arrayable, Jsonable
+class ChildEntity implements ChildEntityable, Entityable, Arrayable, Jsonable
 {
-    /* UserInterface */
-    protected $user;
+    /* ChildInterface */
+    protected $child;
 
-    public function __construct(User $user)
+    public function __construct(Child $child)
     {
-        $this->user = $user;
+        $this->child = $child;
     }
 
     /**
@@ -35,7 +36,7 @@ class UserEntity implements UserEntityable, Entityable, Arrayable, Jsonable
      */
     public function setModel(Model $model)
     {
-        $this->user = $model;
+        $this->child = $model;
 
         return $this;
     }
@@ -46,48 +47,54 @@ class UserEntity implements UserEntityable, Entityable, Arrayable, Jsonable
      */
     public function getModel()
     {
-        return $this->user;
-    }
-
-    public function create(array $value)
-    {
-        $this->user = $this->user->newInstance();
-        $this->user->fill($value);
-
-        return $this->user->save();
+        return $this->child;
     }
 
     /**
-     * ユーザーIDからユーザーデータを取得する
+     * @param UserEntityable $user
+     * @param array $value
+     * @return bool
+     */
+    public function create(UserEntityable $user, array $value)
+    {
+        $new = $this->child->newInstance();
+        $new->fill($value);
+        $new->getModel()->user_id = $user->id;
+
+        return $new->save();
+    }
+
+    /**
+     * get child from id.
      *
      * @param $id
      * @return $this
      */
     public function find($id)
     {
-        $this->user = $this->user->findOrFail($id);
+        $this->child = $this->child->findOrFail($id);
 
         return $this;
     }
 
     /**
-     * all user list
+     * all children list
      *
      * @return Collection
      */
     public function all()
     {
-        return $this->user->all();
+        return $this->child->all();
     }
 
     /**
-     * paginate the user list
+     * paginate the children list
      *
      * @return Paginator
      */
     public function paginate()
     {
-        return $this->user->paginate();
+        return $this->child->paginate();
     }
 
     /**
@@ -97,7 +104,7 @@ class UserEntity implements UserEntityable, Entityable, Arrayable, Jsonable
      */
     public function toArray()
     {
-        return $this->user->toArray();
+        return $this->child->toArray();
     }
 
     /**
@@ -108,7 +115,7 @@ class UserEntity implements UserEntityable, Entityable, Arrayable, Jsonable
      */
     public function toJson($options = 0)
     {
-        return $this->user->toJson();
+        return $this->child->toJson();
     }
 
     /**

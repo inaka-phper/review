@@ -40,6 +40,11 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['email', 'password', 'remember_token', 'created_at', 'updated_at'];
 
+    public function children()
+    {
+        return $this->hasMany('App\Child');
+    }
+
     /**
      * encoding to bcrypt from plain password.
      * @param $value

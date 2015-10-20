@@ -35,6 +35,33 @@ interface UserServiceable
     public function addUsers(array $values);
 
     /**
+     * add child on user.
+     * @param array $values
+     * @return ChildEntityable
+     */
+    public function addChild(array $values);
+
+    /**
+     * delete child for user.
+     * @param $id
+     * @return Collection
+     */
+    public function deleteChild($id);
+
+    /**
+     * get child from user.
+     * @param $id
+     * @return ChildEntityable
+     */
+    public function getChild($id);
+
+    /**
+     * get children from user.
+     * @return Collection
+     */
+    public function getChildren();
+
+    /**
      * find by users id
      * @param integer $id
      * @return UserEntity
