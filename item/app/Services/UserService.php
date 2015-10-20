@@ -111,7 +111,7 @@ class UserService implements UserServiceable
      */
     public function addChild(array $values)
     {
-        return $this->child->create($values);
+        return $this->child->create($this->getEntity(), $values);
     }
 
     /**
