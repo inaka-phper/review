@@ -16,10 +16,11 @@ interface ChildEntityable
 {
     /**
      * create new children.
+     * @param UserEntityable $user
      * @param array $values
      * @return ChildEntityable
      */
-    public function create(array $values);
+    public function create(UserEntityable $user, array $values);
 
     /**
      * find by children id.

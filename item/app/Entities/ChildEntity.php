@@ -12,6 +12,7 @@ namespace App\Entities;
 use App\Child;
 use App\Contracts\Entityable;
 use App\Contracts\ChildEntityable;
+use App\Contracts\UserEntityable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
@@ -49,12 +50,18 @@ class ChildEntity implements ChildEntityable, Entityable, Arrayable, Jsonable
         return $this->child;
     }
 
-    public function create(array $value)
+    /**
+     * @param UserEntityable $user
+     * @param array $value
+     * @return bool
+     */
+    public function create(UserEntityable $user, array $value)
     {
-        $this->child = $this->child->newInstance();
-        $this->child->fill($value);
+        $new = $this->child->newInstance();
+        $new->fill($value);
+        $new->getModel()->user_id = $user->id;
 
-        return $this->child->save();
+        return $new->save();
     }
 
     /**

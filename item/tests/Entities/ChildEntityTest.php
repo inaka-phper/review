@@ -71,11 +71,16 @@ class ChildEntityTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $this->mock
-            ->shouldReceive('fill')->andReturn(m::self())
-            ->shouldReceive('newInstance')->andReturn(m::self())
-            ->shouldReceive('save')->andReturn(true);
+            ->shouldReceive('fill')->andReturn($this->mock)
+            ->shouldReceive('save')->andReturn(true)
+            ->shouldReceive('setAttribute')
+            ->shouldReceive('getModel')->andReturn($this->mock)
+            ->shouldReceive('newInstance')->andReturn($this->object);
 
-        $this->assertTrue($this->object->create($this->value));
+        $user = m::mock('UserEntityable', 'App\Contracts\UserEntityable');
+        $user->id = 1;
+
+        $this->assertTrue($this->object->create($user, $this->value));
     }
 
     /**
@@ -83,7 +88,7 @@ class ChildEntityTest extends \PHPUnit_Framework_TestCase
      */
     public function testFind()
     {
-        $this->mock->shouldReceive('findOrFail')->andReturn(m::self());
+        $this->mock->shouldReceive('findOrFail')->andReturn($this->mock);
 
         $this->assertInstanceOf('App\Entities\ChildEntity', $this->object->find(1));
     }
