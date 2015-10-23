@@ -14,7 +14,11 @@
         "phpunit/phpunit": "~4.0",
         "phpunit/phpunit-skeleton-generator": "*",
         "phpspec/phpspec": "~2.1",
-        "laravel/homestead": "^2.1"
+        "laravel/homestead": "^2.1",
+        "behat/behat": "^3.0",
+        "behat/mink": "^1.7",
+        "behat/mink-extension": "^2.1",
+        "laracasts/behat-laravel-extension": "^1.0"
     },
     "autoload": {
         "classmap": [
